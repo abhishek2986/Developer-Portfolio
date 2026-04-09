@@ -26,7 +26,7 @@ export function Skills() {
       skills: [
         { name: "Node.js", level: 60, icon: "🟢" },
         { name: "Express.js", level: 60, icon: "🚂" },
-        { name: "PostgreSQL", level: 50, icon: "🐘" },
+        { name: "PostgreSQL", level: 65, icon: "🐘" },
       ],
     },
     {
