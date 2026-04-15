@@ -9,25 +9,17 @@ export function Projects() {
 
   const projects = [
     {
-      title: "E-Commerce Platform",
+      title: "AI-Enabled Smart Restaurant Management System",
       description:
-        "A fully responsive e-commerce platform with product filtering, cart management, and checkout flow. Features include real-time search, wishlist, and order tracking.",
-      image: "🛒",
-      tags: ["React", "Tailwind CSS", "Context API", "Local Storage"],
+        "RestroFusion AI is an intelligent restaurant management system that digitizes menus using QR codes and streamlines ordering, billing, and reservations, while integrating an AI-powered call agent to automate table bookings and handle customer inquiries efficiently; it also provides order reports and analytics to improve decision-making, reduce manual effort, and enhance overall restaurant operations.",
+      image: "🍽️",
+      tags: ["React", "Node.js", "Express.js", "Postgresql", "Vapi.ai"],
       github: "https://github.com",
       demo: "https://example.com",
       gradient: "from-blue-500 via-blue-600 to-cyan-600",
       featured: true,
     },
-    {
-      title: "Weather Dashboard",
-      image: "🌤️",
-      tags: ["React", "API Integration", "Chart.js"],
-      github: "https://github.com",
-      demo: "https://example.com",
-      gradient: "from-purple-500 via-purple-600 to-pink-600",
-      featured: true,
-    },
+
     {
       title: "Smart-Todo-Manager",
       description:
@@ -51,26 +43,15 @@ export function Projects() {
       featured: false,
     },
     {
-      title: "Recipe Finder",
+      title: "AI Voice Agent for Restaurant Automation",
       description:
-        "Discover recipes worldwide with detailed ingredients, cooking steps, nutritional info, and save your favorites.",
-      image: "🍳",
-      tags: ["React", "REST API", "Firebase"],
+        "Developed an AI Voice Agent for restaurant automation to handle customer inquiries and table reservations through real-time voice interaction, reducing manual workload and improving response time.",
+      image: "🤖",
+      tags: ["Vapi.ai", "Node.js", "Express.js"],
       github: "https://github.com",
       demo: "https://example.com",
-      gradient: "from-yellow-500 via-orange-600 to-red-600",
-      featured: false,
-    },
-    {
-      title: "Markdown Blog",
-      description:
-        "Clean blog platform with markdown support, syntax highlighting, categories, tags, and reading time estimates.",
-      image: "📝",
-      tags: ["React", "Markdown", "React Router"],
-      github: "https://github.com",
-      demo: "https://example.com",
-      gradient: "from-indigo-500 via-purple-600 to-pink-600",
-      featured: false,
+      gradient: "from-purple-500 via-pink-600 to-red-600",
+      featured: true,
     },
   ];
 
