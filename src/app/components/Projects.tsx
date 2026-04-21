@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useTransform } from "motion/react";
 import { useInView } from "motion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Github, ExternalLink, Star } from "lucide-react";
 
 export function Projects() {
@@ -116,6 +116,8 @@ function ProjectCard({
   isInView: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [open, setOpen] = useState(false);
+
   const cardRef = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -139,126 +141,126 @@ function ProjectCard({
     y.set(0);
   };
 
+  // 🔥 TEXT LOGIC
+  const limit = 165;
+  const isLong = project.description.length > limit;
+  const shortText = project.description.slice(0, limit);
+
+  // 🔥 LOCK SCROLL
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
+  }, [open]);
+
+  // 🔥 ESC CLOSE
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
   return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX: isHovered ? rotateX : 0,
-        rotateY: isHovered ? rotateY : 0,
-        transformStyle: "preserve-3d",
-      }}
-      className="group relative bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-300"
-    >
-      {/* Featured Badge */}
-      {project.featured && (
-        <div className="absolute top-4 right-4 z-10 px-3 py-1 bg-yellow-500 text-white text-xs font-semibold rounded-full flex items-center gap-1">
-          <Star className="w-3 h-3 fill-white" />
-          Featured
+    <>
+      {/* CARD */}
+      <motion.div
+        ref={cardRef}
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateX: isHovered ? rotateX : 0,
+          rotateY: isHovered ? rotateY : 0,
+          transformStyle: "preserve-3d",
+        }}
+        className="group relative bg-white dark:bg-gray-800/50 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300"
+      >
+        {/* Image */}
+        <div
+          className={`h-48 flex items-center justify-center bg-gradient-to-br ${project.gradient}`}
+        >
+          <motion.div
+            animate={
+              isHovered ? { scale: 1.2, rotate: 5 } : { scale: 1, rotate: 0 }
+            }
+            className="text-8xl"
+          >
+            {project.image}
+          </motion.div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+            {project.title}
+          </h3>
+
+          {/* 🔥 INLINE MORE */}
+          <p className="text-gray-600 dark:text-gray-400 mb-2 text-sm leading-relaxed break-words">
+            {isLong ? (
+              <>
+                {shortText}...
+                <button
+                  onClick={() => setOpen(true)}
+                  className="text-blue-500 ml-1 hover:underline"
+                >
+                  More
+                </button>
+              </>
+            ) : (
+              project.description
+            )}
+          </p>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mt-4">
+            {project.tags.map((tag: string) => (
+              <span
+                key={tag}
+                className="px-3 py-1 text-xs rounded-full bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* 🔥 POPUP MODAL */}
+      {open && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          onClick={() => setOpen(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-white dark:bg-gray-900 max-w-lg w-full mx-4 p-6 rounded-2xl shadow-xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close */}
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-lg"
+            >
+              ✕
+            </button>
+
+            {/* Title */}
+            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+              {project.title}
+            </h2>
+
+            {/* Full Text */}
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed break-words">
+              {project.description}
+            </p>
+          </motion.div>
         </div>
       )}
-
-      {/* Project Image/Icon */}
-      <div
-        className={`relative h-48 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
-      >
-        <motion.div
-          animate={
-            isHovered ? { scale: 1.2, rotate: 5 } : { scale: 1, rotate: 0 }
-          }
-          transition={{ duration: 0.3 }}
-          className="text-8xl"
-        >
-          {project.image}
-        </motion.div>
-
-        {/* Overlay on Hover */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
-          className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center gap-4"
-        >
-          <motion.a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="p-3 bg-white dark:bg-gray-800 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Github className="w-6 h-6 text-gray-900 dark:text-white" />
-          </motion.a>
-          <motion.a
-            href={project.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="p-3 bg-white dark:bg-gray-800 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ExternalLink className="w-6 h-6 text-gray-900 dark:text-white" />
-          </motion.a>
-        </motion.div>
-      </div>
-
-      {/* Project Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 text-sm leading-relaxed">
-          {project.description}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tags.map((tag: string) => (
-            <span
-              key={tag}
-              className="px-3 py-1 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 text-xs font-medium rounded-full"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Links */}
-        <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          >
-            <Github className="w-4 h-4" />
-            <span>Code</span>
-          </a>
-          <a
-            href={project.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-          >
-            <ExternalLink className="w-4 h-4" />
-            <span>Live Demo</span>
-          </a>
-        </div>
-      </div>
-
-      {/* 3D Card Shadow */}
-      <motion.div
-        style={{
-          transform: isHovered ? "translateZ(-50px)" : "translateZ(0px)",
-        }}
-        className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl blur-xl"
-      />
-    </motion.div>
+    </>
   );
 }
