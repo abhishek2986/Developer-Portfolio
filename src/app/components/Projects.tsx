@@ -141,17 +141,14 @@ function ProjectCard({
     y.set(0);
   };
 
-  // 🔥 TEXT LOGIC
   const limit = 165;
   const isLong = project.description.length > limit;
   const shortText = project.description.slice(0, limit);
 
-  // 🔥 LOCK SCROLL
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
   }, [open]);
 
-  // 🔥 ESC CLOSE
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
@@ -162,7 +159,6 @@ function ProjectCard({
 
   return (
     <>
-      {/* CARD */}
       <motion.div
         ref={cardRef}
         initial={{ opacity: 0, y: 50 }}
@@ -178,9 +174,9 @@ function ProjectCard({
         }}
         className="group relative bg-white dark:bg-gray-800/50 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300"
       >
-        {/* Image */}
+        {/* 🔥 IMAGE + HOVER OVERLAY */}
         <div
-          className={`h-48 flex items-center justify-center bg-gradient-to-br ${project.gradient}`}
+          className={`relative h-48 flex items-center justify-center bg-gradient-to-br ${project.gradient}`}
         >
           <motion.div
             animate={
@@ -190,16 +186,46 @@ function ProjectCard({
           >
             {project.image}
           </motion.div>
+
+          {/* 🔥 HOVER BUTTONS */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center gap-4"
+          >
+            <motion.a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={(e) => e.stopPropagation()}
+              className="p-3 bg-white dark:bg-gray-800 rounded-full"
+            >
+              <Github className="w-6 h-6 text-gray-900 dark:text-white" />
+            </motion.a>
+
+            <motion.a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={(e) => e.stopPropagation()}
+              className="p-3 bg-white dark:bg-gray-800 rounded-full"
+            >
+              <ExternalLink className="w-6 h-6 text-gray-900 dark:text-white" />
+            </motion.a>
+          </motion.div>
         </div>
 
-        {/* Content */}
+        {/* CONTENT */}
         <div className="p-6">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
             {project.title}
           </h3>
 
-          {/* 🔥 INLINE MORE */}
-          <p className="text-gray-600 dark:text-gray-400 mb-2 text-sm leading-relaxed break-words">
+          <p className="text-gray-600 dark:text-gray-400 mb-2 text-sm leading-relaxed">
             {isLong ? (
               <>
                 {shortText}...
@@ -215,7 +241,6 @@ function ProjectCard({
             )}
           </p>
 
-          {/* Tags */}
           <div className="flex flex-wrap gap-2 mt-4">
             {project.tags.map((tag: string) => (
               <span
@@ -229,7 +254,7 @@ function ProjectCard({
         </div>
       </motion.div>
 
-      {/* 🔥 POPUP MODAL */}
+      {/* 🔥 MODAL */}
       {open && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
@@ -238,26 +263,19 @@ function ProjectCard({
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white dark:bg-gray-900 max-w-lg w-full mx-4 p-6 rounded-2xl shadow-xl relative"
             onClick={(e) => e.stopPropagation()}
+            className="bg-white dark:bg-gray-900 max-w-lg w-full mx-4 p-6 rounded-2xl"
           >
-            {/* Close */}
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-lg"
+              className="absolute top-3 right-3"
             >
               ✕
             </button>
 
-            {/* Title */}
-            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-              {project.title}
-            </h2>
+            <h2 className="text-xl font-semibold mb-4">{project.title}</h2>
 
-            {/* Full Text */}
-            <p className="text-gray-600 dark:text-gray-400 leading-relaxed break-words">
-              {project.description}
-            </p>
+            <p>{project.description}</p>
           </motion.div>
         </div>
       )}
