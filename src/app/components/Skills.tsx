@@ -36,6 +36,7 @@ export function Skills() {
       skills: [
         { name: "Git & GitHub", level: 75, icon: "🔀" },
         { name: "VS Code", level: 85, icon: "💻" },
+        { name: "Vapi.ai", level: 50, icon: "🤖" },
       ],
     },
   ];

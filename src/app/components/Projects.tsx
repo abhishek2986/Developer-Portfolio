@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useTransform } from "motion/react";
 import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { Github, ExternalLink, Star } from "lucide-react";
+import { Github, ExternalLink, Star, Video } from "lucide-react";
 
 export function Projects() {
   const ref = useRef(null);
@@ -15,7 +15,7 @@ export function Projects() {
       image: "🍽️",
       tags: ["React", "Node.js", "Express.js", "Postgresql", "Vapi.ai"],
       github: "https://github.com",
-      demo: "https://example.com",
+      demo: "https://restrofusion-ai.netlify.app/",
       gradient: "from-blue-500 via-blue-600 to-cyan-600",
       featured: true,
     },
@@ -38,7 +38,7 @@ export function Projects() {
       image: "💼",
       tags: ["React", "Motion", "Tailwind"],
       github: "https://github.com",
-      demo: "https://example.com",
+      demo: "https://abhishek-patil-dev-portfolio.netlify.app/",
       gradient: "from-orange-500 via-red-600 to-pink-600",
       featured: false,
     },
@@ -50,6 +50,8 @@ export function Projects() {
       tags: ["Vapi.ai", "Node.js", "Express.js"],
       github: "https://github.com",
       demo: "https://example.com",
+      video:
+        "https://drive.google.com/file/d/1Fn-C-yz9Y3OQj3z6rq3_snSa8Um6T-LV/view?usp=sharing",
       gradient: "from-purple-500 via-pink-600 to-red-600",
       featured: true,
     },
@@ -206,7 +208,7 @@ function ProjectCard({
             </motion.a>
 
             <motion.a
-              href={project.demo}
+              href={project.video || project.demo}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1 }}
@@ -214,7 +216,11 @@ function ProjectCard({
               onClick={(e) => e.stopPropagation()}
               className="p-3 bg-white dark:bg-gray-800 rounded-full"
             >
-              <ExternalLink className="w-6 h-6 text-gray-900 dark:text-white" />
+              {project.video ? (
+                <Video className="w-6 h-6 text-gray-900 dark:text-white" />
+              ) : (
+                <ExternalLink className="w-6 h-6 text-gray-900 dark:text-white" />
+              )}
             </motion.a>
           </motion.div>
         </div>

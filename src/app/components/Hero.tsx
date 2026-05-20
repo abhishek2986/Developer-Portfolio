@@ -105,7 +105,11 @@ export function Hero() {
                 </span>
               </motion.button>
 
-              <a href="https://drive.google.com/uc?export=download&id=1IWcf-YBgahF9foFgQml0Y6rVRWH-3ek1">
+              <a
+                href="https://drive.google.com/file/d/1iK8jZ3SiE2qmxUdT7t25F4-u1WXzIGQe/view?usp=sharing "
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
