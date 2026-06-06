@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useTransform } from "motion/react";
 import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { Github, ExternalLink, Star, Video } from "lucide-react";
+import { Github, ExternalLink, Star, Video, Images } from "lucide-react";
 
 export function Projects() {
   const ref = useRef(null);
@@ -54,6 +54,23 @@ export function Projects() {
         "https://drive.google.com/file/d/1Fn-C-yz9Y3OQj3z6rq3_snSa8Um6T-LV/view?usp=sharing",
       gradient: "from-purple-500 via-pink-600 to-red-600",
       featured: true,
+    },
+    {
+      title: "AI-powered Complaint & Feedback Management workflow",
+      description: `I built an AI-powered Complaint & Feedback Management workflow to automate how user requests are processed and managed efficiently.
+
+The workflow includes:
+
+🔹 Capturing user form submissions
+🔹 Processing and categorizing requests with AI
+🔹 Storing records in Google Sheets for tracking
+🔹 Sending real-time notifications to Slack channels
+🔹 Triggering automated email acknowledgments to users`,
+      image: "📋",
+      tags: ["n8n", "Google Gemini AI ", "Google Sheets", "Slack", "Gmail"],
+      images:
+        "https://drive.google.com/file/d/17dKLTGkPZLwqfxhoIboH9OiohisPxeeU/view?usp=sharing",
+      gradient: "from-purple-500 via-pink-600 to-red-600",
     },
   ];
 
@@ -208,7 +225,7 @@ function ProjectCard({
             </motion.a>
 
             <motion.a
-              href={project.video || project.demo}
+              href={project.video || project.demo || project.images}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1 }}
@@ -218,6 +235,8 @@ function ProjectCard({
             >
               {project.video ? (
                 <Video className="w-6 h-6 text-gray-900 dark:text-white" />
+              ) : project.images ? (
+                <Images className="w-6 h-6 text-gray-900 dark:text-white" />
               ) : (
                 <ExternalLink className="w-6 h-6 text-gray-900 dark:text-white" />
               )}
@@ -281,7 +300,9 @@ function ProjectCard({
 
             <h2 className="text-xl font-semibold mb-4">{project.title}</h2>
 
-            <p>{project.description}</p>
+            <p className="whitespace-pre-line text-gray-600 dark:text-gray-400">
+              {project.description}
+            </p>
           </motion.div>
         </div>
       )}
