@@ -88,13 +88,13 @@ export function Contact() {
       link: "tel:+919054819747",
       color: "from-green-500 to-emerald-500",
     },
-    {
-      icon: <MapPin className="w-6 h-6" />,
-      label: "Location",
-      value: "Vadodara, India 📍",
-      link: null,
-      color: "from-purple-500 to-pink-500",
-    },
+    // {
+    //   icon: <MapPin className="w-6 h-6" />,
+    //   label: "Location",
+    //   value: "Vadodara, India 📍",
+    //   link: null,
+    //   color: "from-purple-500 to-pink-500",
+    // },
   ];
 
   const socialLinks = [

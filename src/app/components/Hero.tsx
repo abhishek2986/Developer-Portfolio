@@ -106,7 +106,7 @@ export function Hero() {
               </motion.button>
 
               <a
-                href="https://drive.google.com/file/d/1iK8jZ3SiE2qmxUdT7t25F4-u1WXzIGQe/view?usp=sharing "
+                href="https://drive.google.com/file/d/1yvs7M-cBObknUfd9GmKBd3FwORbwxOtp/view?usp=sharing "
                 target="_blank"
                 rel="noopener noreferrer"
               >
