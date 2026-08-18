@@ -10,21 +10,30 @@ export function Experience() {
   const experiences = [
     {
       icon: <GraduationCap className="w-6 h-6" />,
-      title: "Currently pursuing B.E. in Information Technology",
+      title: "B.E. in Information Technology",
       description:
-        "Building strong fundamentals in computer science, programming, and software engineering principles.",
-      badge: "4th Year",
+        "Completed a Bachelor of Engineering in Information Technology with a strong foundation in software development and computer science.",
+      badge: "2022 - 2026",
       color: "blue",
       badgeColor: "bg-blue-500/20 text-blue-400",
     },
     {
       icon: <Code2 className="w-6 h-6" />,
-      title: "Learning modern web development with React",
+      title: "Working as a Web Developer Trainee",
       description:
-        "Mastering component-based architecture, state management, and building responsive user interfaces.",
-      badge: "Ongoing",
+        "Currently gaining professional experience in full-stack web development using React.js, Node.js, Express.js, PostgreSQL, JavaScript, Git, and GitHub.",
+      badge: "Present",
       color: "purple",
       badgeColor: "bg-purple-500/20 text-purple-400",
+    },
+    {
+      icon: <Code2 className="w-6 h-6" />,
+      title: "Full-Stack Web Development",
+      description:
+        "Developing modern web applications with React.js on the frontend and Node.js, Express.js, and PostgreSQL on the backend.",
+      badge: "Ongoing",
+      color: "pink",
+      badgeColor: "bg-pink-500/20 text-pink-400",
     },
     {
       icon: <BookOpen className="w-6 h-6" />,
@@ -37,12 +46,12 @@ export function Experience() {
     },
     {
       icon: <Award className="w-6 h-6" />,
-      title: "Exploring APIs and database systems",
+      title: "Backend & API Development",
       description:
-        "Understanding backend technologies, RESTful APIs, and database design with SQL and PostgreSQL.",
+        "Working with REST APIs, server-side development, PostgreSQL databases, authentication, and backend application integration.",
       badge: "Ongoing",
-      color: "indigo",
-      badgeColor: "bg-indigo-500/20 text-indigo-400",
+      color: "green",
+      badgeColor: "bg-green-500/20 text-green-400",
     },
     {
       icon: <BookOpen className="w-6 h-6" />,
